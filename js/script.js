@@ -1,8 +1,8 @@
 config = {
-	//api: "http://188.166.234.80/",
-	//authUrl: "http://188.166.234.80/auth.php",
-	api: "http://162.243.86.247/",
-	authUrl: "http://162.243.86.247/auth.php",
+	api: "http://107.170.70.197/",
+	authUrl: "http://107.170.70.197/auth.php",
+	//api: "http://162.243.86.247/",
+	//authUrl: "http://162.243.86.247/auth.php",
 	dataGroups: ["schools", "buildings", "building-elements"],
 	surveyStartDate: "2015-10-23" //
 };
@@ -35,10 +35,10 @@ function UI_DataHList(data, dataGroups, api) {
 			});*/
 
 			var datapointRow = $('<span class="datapoint"></span>').append($("<a class='pdf-export'>PDF</a>").attr({
-				href: api + "download.php?emis=" + item["emis"]+"&key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+				href: api + "download.php?emis=" + item["emis"]+"&key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 				target: "_blank"
 			})).append($("<a class='webpage-view'>HTML</a>").attr({
-				href: api + "view.php?emis=" + item["emis"]+"&key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+				href: api + "view.php?emis=" + item["emis"]+"&key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 				target: "_blank"
 			}));
 
@@ -242,7 +242,7 @@ $(document).ready(function() {
 		eventHandlers: {
 			authorized: function(session) {
 				sessionGlobals={
-					"surveyor_id": session["surveyor_id"],
+					"district": session["district"],
 					"key": session["key"]
 				};
 				loginPromptContainer.remove();
@@ -254,7 +254,7 @@ $(document).ready(function() {
 	function init() {
 
 		$.ajax({
-			url: config.api + "download.php"+"?key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+			url: config.api + "download.php"+"?key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 			success: function(data) {
 				data = data.split("|");
 				data[0] = data[0].split(";");
@@ -315,7 +315,7 @@ $(document).ready(function() {
 
 		var updateMsgBox = $("<div class='update-msg'></div>").appendTo("#app");
 		$.ajax({
-			url: config.api + "download.php?query=gettimestamp"+"&key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+			url: config.api + "download.php?query=gettimestamp"+"&key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 			success: function(data) {
 				data = Number(data);
 				updatetime = "Last update: " + Math.floor(data / 3600) + "h" + Math.floor((data / 3600 - Math.floor(data / 3600)) * 60) + "m ago.";
@@ -341,7 +341,7 @@ $(document).ready(function() {
 			return $("<a class='ui-large-button with-pictures'>Download Data (Including Photographs)</a>").click(function(e) {
 				var context = this;
 				$.ajax({
-					url: config.api + "script.php?tablename=school&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&string=" + uiQueryField.getQueryObject()["string"]+"&key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+					url: config.api + "script.php?tablename=school&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&string=" + uiQueryField.getQueryObject()["string"]+"&key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 					success: function(filename) {
 						$(context).parent().find("a.ui-hlist").remove();
 						if (filename === "") {
@@ -354,7 +354,7 @@ $(document).ready(function() {
 						}
 
 						$.ajax({
-							url: config.api + "script.php?tablename=building&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&string=" + uiQueryField.getQueryObject()["string"]+"&key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+							url: config.api + "script.php?tablename=building&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&string=" + uiQueryField.getQueryObject()["string"]+"&key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 							success: function(filename) {
 								//$(context).parent().find("a.ui-hlist").remove();
 								if (filename === "") {
@@ -367,7 +367,7 @@ $(document).ready(function() {
 								}
 
 								$.ajax({
-									url: config.api + "script.php?tablename=buildingelement&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&string=" + uiQueryField.getQueryObject()["string"]+"&key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+									url: config.api + "script.php?tablename=buildingelement&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&string=" + uiQueryField.getQueryObject()["string"]+"&key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 									success: function(filename) {
 										//$(context).parent().find("a.ui-hlist").remove();
 										if (filename === "") {
@@ -395,7 +395,7 @@ $(document).ready(function() {
 			return $("<a class='ui-large-button'>Download CSV Only</a>").click(function(e) {
 				var context = this;
 				$.ajax({
-					url: config.api + "script.php?tablename=school&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&query=csvonly"+"&key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+					url: config.api + "script.php?tablename=school&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&query=csvonly"+"&key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 					success: function(filename) {
 						$(context).parent().find("a.ui-hlist").remove();
 						if (filename === "") {
@@ -408,7 +408,7 @@ $(document).ready(function() {
 						}
 
 						$.ajax({
-							url: config.api + "script.php?tablename=building&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&query=csvonly"+"&key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+							url: config.api + "script.php?tablename=building&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&query=csvonly"+"&key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 							success: function(filename) {
 								//$(context).parent().find("a.ui-hlist").remove();
 								if (filename === "") {
@@ -421,7 +421,7 @@ $(document).ready(function() {
 								}
 
 								$.ajax({
-									url: config.api + "script.php?tablename=buildingelement&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&query=csvonly"+"&key="+sessionGlobals["key"]+(sessionGlobals["surveyor_id"]?("&surveyor_id="+sessionGlobals["surveyor_id"]):""),
+									url: config.api + "script.php?tablename=buildingelement&startdate=" + uiQueryField.getQueryObject()["start-date"] + "&enddate=" + uiQueryField.getQueryObject()["end-date"] + "&query=csvonly"+"&key="+sessionGlobals["key"]+(sessionGlobals["district"]?("&district="+sessionGlobals["district"]):""),
 									success: function(filename) {
 										//$(context).parent().find("a.ui-hlist").remove();
 										if (filename === "") {
