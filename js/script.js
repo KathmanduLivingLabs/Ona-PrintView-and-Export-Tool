@@ -274,7 +274,7 @@ $(document).ready(function() {
 				uiDataHList = new UI_DataHList(jsonArraySearch(dataSet, "", {
 					"key-value-in-range": {
 						"key": "submission-date",
-						"range-start": new Date(new Date() - 864000000).toJSON().split("T")[0],
+						"range-start": config["surveyStartDate"],
 						"range-end": new Date().toJSON().split("T")[0]
 					}
 				}), config.dataGroups, config.api);
@@ -284,7 +284,7 @@ $(document).ready(function() {
 		});
 
 		uiQueryField = new UI_DateRangeAndString({
-			"default-start-date": new Date(new Date() - 864000000).toJSON().split("T")[0],
+			"default-start-date": config["surveyStartDate"],
 			"default-end-date": (new Date()).toJSON().split("T")[0],
 			"event-handlers": {
 				"on-query": function(e) {
