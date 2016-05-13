@@ -348,7 +348,7 @@ $(document).ready(function() {
 							$(context).parent().append($("<a class='ui-hlist-item error'/>").text("Date range too large. Please try a smaller range of dates."));
 						} else {
 							$(context).parent().append($("<a class='ui-hlist-item' target='_blank'/>").attr({
-								href: config.api +"downloads/"+sessionGlobals["key"].split('-')[0]+"/"+ filename
+								href: config.api +"downloads/"+sessionGlobals["key"].split('-')[1]+"/"+ filename
 							}).text(filename));
 							
 						}
@@ -361,7 +361,7 @@ $(document).ready(function() {
 									$(context).parent().append($("<a class='ui-hlist-item error'/>").text("Date range too large. Please try a smaller range of dates."));
 								} else {
 									$(context).parent().append($("<a class='ui-hlist-item' target='_blank'/>").attr({
-										href: config.api +"downloads/"+sessionGlobals["key"].split('-')[0]+"/"+ filename
+										href: config.api +"downloads/"+sessionGlobals["key"].split('-')[1]+"/"+ filename
 									}).text(filename));
 									
 								}
@@ -375,7 +375,7 @@ $(document).ready(function() {
 										} else {
 
 											$(context).parent().append($("<a class='ui-hlist-item' target='_blank'/>").attr({
-												href: config.api +"downloads/"+sessionGlobals["key"].split('-')[0]+"/"+ filename
+												href: config.api +"downloads/"+sessionGlobals["key"].split('-')[1]+"/"+ filename
 											}).text(filename));
 											
 										}
