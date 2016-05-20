@@ -337,7 +337,7 @@ $(document).ready(function() {
 			}).datepicker("setDate", new Date());
 		}
 
-		$("<div class='ui-raw-download-list'/>").append(function() {
+		$("<div class='ui-raw-download-list passive'/>").append(function() {
 			return $("<a class='ui-large-button with-pictures'>Download Data (Including Photographs)</a>").click(function(e) {
 				var context = this;
 				$.ajax({
